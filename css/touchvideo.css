@@ -1,0 +1,31 @@
+div.TouchGesture_Toast{
+    width: 200px;
+    height: 100px;
+    opacity: 0.75;
+    position: absolute;
+    z-index: 100;
+    top: 100px;
+    left: 200px;
+    background-color: black;
+}
+span.TouchGesture_ToastText{
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+}
+div.TouchGesture_Toast.fadeout{
+    -webkit-transition: all 1.5s;  
+  
+    -moz-transition: all 1.5s;  
+  
+    -ms-transition: all 1.5s;  
+  
+    -o-transition: all 1.5s;  
+  
+    transition: all 1.5s;  
+  
+    opacity: 0;
+  
+  }

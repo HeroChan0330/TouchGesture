@@ -1,0 +1,20 @@
+{
+    "name": "TouchGesture",
+    "description" : "A chrome pulgin to help touchscreen control online video",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": "logo.png"
+    },
+    "content_scripts": 
+	[
+		{
+			"matches": ["<all_urls>"],
+			"js": ["js/TouchGesture.js"],
+			"css": ["css/touchvideo.css"],
+			"run_at": "document_start"
+		}
+    ]
+    
+}
