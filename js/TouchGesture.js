@@ -139,10 +139,10 @@ TouchGesture.VideoGesture.prototype.onTouchEnd=function(e){
             // console.log("touch end:"+res);
             videoElement.currentTime=res;
             this.hideToast();
-            videoElement.play();
+            // videoElement.play();
         }else if(this.sweepDir==1||this.sweepDir==2){
             this.hideToast();
-            videoElement.play();
+            // videoElement.play();
         }
     }else{
         this.cancelTouch();
