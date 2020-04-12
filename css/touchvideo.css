@@ -3,7 +3,7 @@ div.TouchGesture_Toast{
     height: 100px;
     opacity: 0.75;
     position: absolute;
-    z-index: 100;
+    z-index: 999999;
     top: 100px;
     left: 200px;
     background-color: black;

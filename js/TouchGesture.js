@@ -22,26 +22,30 @@ TouchGesture.VideoGesture=function(videoElement){
     this.bodyPosition="";
 
     this._videoElement=videoElement;
+    this._parentElement=videoElement.parentElement;
     this._element=null;
     this._toastText=null;
-    this.createDom();
+    this.createDom(this._parentElement);
     this.listenDom();
 };
 
-TouchGesture.VideoGesture.prototype.createDom=function(){
-    var fragment = document.createDocumentFragment();
+TouchGesture.VideoGesture.prototype.createDom=function(parentElement){
+    // var fragment = document.createDocumentFragment();
     var toastDiv=document.createElement("div");
     var toastText=document.createElement("span");
     toastDiv.appendChild(toastText);
     toastDiv.classList.add("TouchGesture_Toast");
+    toastDiv.style.display="none";
     toastText.classList.add("TouchGesture_ToastText");
-    fragment.appendChild(toastDiv);
+    // fragment.appendChild(toastDiv);
 
-    this._videoElement.parentElement.insertBefore(fragment, this.videoEl_);
+    this._parentElement=parentElement;
+    // parentElement.insertBefore(fragment, this._videoElement);
+    parentElement.appendChild(toastDiv);
     this._element=toastDiv;
     this._toastText=toastText;
     this._videoElement.classList.add("TouchGesture_Video");
-    this.adjustLayout();
+    // this.adjustLayout();
 };
 
 TouchGesture.VideoGesture.prototype.listenDom=function(){
@@ -153,6 +157,19 @@ TouchGesture.VideoGesture.prototype.onTouchEnd=function(e){
 
 
 TouchGesture.VideoGesture.prototype.adjustLayout=function(){
+    if(document.fullscreenElement!=null){
+        if(document.fullscreenElement.tagName=="HTML"&&this._parentElement.tagName!="BODY"){
+            this._parentElement.removeChild(this._element);
+            this.createDom(document.body);
+        }else if(document.fullscreenElement!=this._parentElement){
+            this._parentElement.removeChild(this._element);
+            // this._parentElement=document.fullscreenElement;
+            this.createDom(document.fullscreenElement);
+        }
+    }else if(document.fullscreenElement==null&&this._parentElement!=this._videoElement.parentElement){
+        this._parentElement.removeChild(this._element);
+        this.createDom(this._videoElement.parentElement);
+    }
     var videoTarget=this._videoElement;
     var vw=videoTarget.offsetWidth,vh=videoTarget.offsetHeight;
     var w=vw/5;
@@ -245,7 +262,7 @@ function seconds2TimeStr(secs){
 //     }
 // });
 
-window.addEventListener("load",function(){
+// window.addEventListener("load",function(){
     TouchGesture.VideoGesture.insertAll();
-    setInterval(TouchGesture.VideoGesture.insertAll, 2000);
-});
+    setInterval(TouchGesture.VideoGesture.insertAll, 1000);
+// });
